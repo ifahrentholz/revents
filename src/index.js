@@ -4,9 +4,9 @@ import './index.css';
 import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 
-const rootEl = document.getElementById('root');
 
-let render = () => {
+const rootEl = document.getElementById('root');
+const render = () => {
   ReactDOM.render(<App />, rootEl);
 }
 
