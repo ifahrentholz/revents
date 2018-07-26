@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
-import EventDashboard from '../features/EventDashboard/EventDashboard'
+import EventDashboard from '../features/event/EventDashboard/EventDashboard'
 import NavBar from '../features/Nav/NavBar/NavBar'
 class App extends Component {
 
