@@ -8,8 +8,8 @@ export default class EventList extends Component {
       <div>
         <h1>EventList</h1>
         {events.map((event) => (
-          <EventListItem key={event.id} event={event} />
-        ))};
+          <EventListItem key={event.id} event={event}/>
+        ))}
       </div>
     )
   }
