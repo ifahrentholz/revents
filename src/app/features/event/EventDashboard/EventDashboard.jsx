@@ -67,6 +67,9 @@ class EventDashboard extends Component {
     };
   }
 
+  /**
+   * Handle "Create Event" Form visibilty
+   */
   handleFormOpen = () => {
     this.setState({
       isOpen: true,
@@ -74,6 +77,9 @@ class EventDashboard extends Component {
     });
   };
 
+  /**
+   * Handle "Create Event" Form cancelation
+   */
   handleCancel = () => {
     this.setState({
       isOpen: false

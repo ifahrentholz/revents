@@ -24,6 +24,11 @@ export default class EventForm extends Component {
   }
 
 
+  /**
+   * @param {any} prevProps
+   * @param {any} prevState
+   * @param {any} snapshot
+   */
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.selectedEvent !== this.props.selectedEvent) {
       this.setState({
@@ -32,6 +37,9 @@ export default class EventForm extends Component {
     }
   }
 
+  /**
+   * @param {Event} evt
+   */
   onFormSubmit = (evt) => {
     evt.preventDefault();
     if (this.state.event.id) {
@@ -41,6 +49,9 @@ export default class EventForm extends Component {
     }
   };
 
+  /**
+   * @param {Event} evt
+   */
   onInputChange = (evt) => {
     const newEvent = this.state.event;
 
