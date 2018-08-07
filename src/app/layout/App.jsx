@@ -4,11 +4,11 @@ import { Route } from 'react-router-dom';
 import EventDashboard from '../features/event/EventDashboard/EventDashboard'
 import NavBar from '../features/Nav/NavBar/NavBar'
 import EventForm from '../features/event/EventForm/EventForm';
-import SettingsDashboard from '../features/user/Settings/SettingsDashboard';
-import UserDetailedPage from '../features/user/UserDetailed/UserDetailedPage';
-import PeopleDashboard from '../features/user/PeopleDashboard/PeopleDashboard';
+import SettingsDashboard from '../features/User/Settings/SettingsDashboard';
+import UserDetailedPage from '../features/User/UserDetailed/UserDetailedPage';
+import PeopleDashboard from '../features/User/PeopleDashboard/PeopleDashboard';
 import EventDetailedPage from '../features/event/EventDetailed/EventDetailedPage';
-import HomePage from '../features/home/HomePage';
+import HomePage from '../features/Home/HomePage';
 
 class App extends Component {
 
