@@ -9,3 +9,5 @@ const PhotosPage = () => {
 }
 
 export default PhotosPage
+
+
