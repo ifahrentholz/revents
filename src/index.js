@@ -8,7 +8,7 @@ import './index.css';
 import App from './app/layout/App';
 import registerServiceWorker from './registerServiceWorker';
 import { configureStore } from './app/store/configureStore';
-
+import ScrollToTop from './app/common/util/ScrollToTop';
 
 const store = configureStore();
 const rootEl = document.getElementById('root');
@@ -16,16 +16,19 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ScrollToTop>
+          <App />
+        </ScrollToTop>
       </BrowserRouter>
     </Provider>,
-    rootEl);
-}
+    rootEl
+  );
+};
 
 // @ts-ignore
-if(module.hot) {
+if (module.hot) {
   // @ts-ignore
-  module.hot.accept("./app/layout/App", () => {
+  module.hot.accept('./app/layout/App', () => {
     setTimeout(render);
   });
 }
