@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import cuid from 'cuid';
 
-import EventList from '../EventList/EventList'
+import EventList from '../EventList/EventList';
 import EventForm from '../EventForm/EventForm';
 import { createEvent, deleteEvent, updateEvent } from '../eventActions';
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   events: state.events
 });
 
@@ -16,7 +15,7 @@ const mapDispatchToProps = {
   createEvent,
   deleteEvent,
   updateEvent
-}
+};
 
 class EventDashboard extends Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class EventDashboard extends Component {
 
     this.state = {
       isOpen: false,
-      selectedEvent: null,
+      selectedEvent: null
     };
   }
 
@@ -50,7 +49,7 @@ class EventDashboard extends Component {
   /**
    * @param {Object} updatedEvent - Event Object
    */
-  handleUpdateEvent = (updatedEvent) => {
+  handleUpdateEvent = updatedEvent => {
     this.props.updateEvent(updatedEvent);
     this.setState({
       isOpen: false,
@@ -62,7 +61,7 @@ class EventDashboard extends Component {
    * @param {Object} eventToOpen
    * @returns {Function}
    */
-  handleOpenEvent = (eventToOpen) => () => {
+  handleOpenEvent = eventToOpen => () => {
     this.setState({
       selectedEvent: eventToOpen,
       isOpen: true
@@ -72,7 +71,7 @@ class EventDashboard extends Component {
   /**
    * @param {Object} newEvent
    */
-  handleCreateEvent = (newEvent) => {
+  handleCreateEvent = newEvent => {
     newEvent.id = cuid();
     newEvent.hostPhotoURL = '/assets/user.png';
 
@@ -87,30 +86,40 @@ class EventDashboard extends Component {
    * @param {String} eventId
    * @returns {Function}
    */
-  handleDeleteEvent = (eventId) => () => {
+  handleDeleteEvent = eventId => () => {
     this.props.deleteEvent(eventId);
   };
 
   render() {
     const { selectedEvent } = this.state;
-    const { events } = this.props;
+    const { events } = this.props;
 
     return (
       <Grid>
         <Grid.Column width={10}>
-          <EventList deleteEvent={this.handleDeleteEvent} onEventOpen={this.handleOpenEvent}
-            events={events} />
+          <EventList
+            deleteEvent={this.handleDeleteEvent}
+            onEventOpen={this.handleOpenEvent}
+            events={events}
+          />
         </Grid.Column>
         <Grid.Column width={6}>
           <Button onClick={this.handleFormOpen} positive content="Create Event" />
-          {this.state.isOpen &&
-            <EventForm updateEvent={this.handleUpdateEvent} selectedEvent={selectedEvent}
-              createEvent={this.handleCreateEvent} handleCancel={this.handleCancel} />
-          }
+          {this.state.isOpen && (
+            <EventForm
+              updateEvent={this.handleUpdateEvent}
+              selectedEvent={selectedEvent}
+              createEvent={this.handleCreateEvent}
+              handleCancel={this.handleCancel}
+            />
+          )}
         </Grid.Column>
       </Grid>
-    )
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventDashboard);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventDashboard);
