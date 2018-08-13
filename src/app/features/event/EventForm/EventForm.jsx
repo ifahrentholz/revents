@@ -1,39 +1,36 @@
 import React, { Component } from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import cuid from 'cuid';
+import { createEvent, updateEvent } from '../eventActions';
 
-const emptyEvent = {
-  title: '',
-  date: '',
-  city: '',
-  venue: '',
-  hostedBy: ''
-};
+const mapStateToProps = (state, ownProps) => {
+  const eventId = ownProps.match.params.id;
 
-export default class EventForm extends Component {
-  state = {
-    event: emptyEvent
+  let event = {
+    title: '',
+    date: '',
+    city: '',
+    venue: '',
+    hostedBy: ''
   };
 
-  componentDidMount() {
-    if (this.props.selectedEvent !== null) {
-      this.setState({
-        event: this.props.selectedEvent
-      });
-    }
+  if (eventId && state.events.length > 0) {
+    event = state.events.filter(event => event.id === eventId)[0];
   }
 
-  /**
-   * @param {any} prevProps
-   * @param {any} prevState
-   * @param {any} snapshot
-   */
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.selectedEvent !== this.props.selectedEvent) {
-      this.setState({
-        event: this.props.selectedEvent || emptyEvent
-      });
-    }
-  }
+  return { event };
+};
+
+const mapDispatchToProps = {
+  createEvent,
+  updateEvent
+};
+
+class EventForm extends Component {
+  state = {
+    event: Object.assign({}, this.props.event)
+  };
 
   /**
    * @param {Event} evt
@@ -42,8 +39,15 @@ export default class EventForm extends Component {
     evt.preventDefault();
     if (this.state.event.id) {
       this.props.updateEvent(this.state.event);
+      this.props.history.goBack();
     } else {
-      this.props.createEvent(this.state.event);
+      const newEvent = {
+        ...this.state.event,
+        id: cuid(),
+        hostPhotoURL: '/assets/user.png'
+      };
+      this.props.createEvent(newEvent);
+      this.props.history.push('/events');
     }
   };
 
@@ -61,7 +65,6 @@ export default class EventForm extends Component {
   };
 
   render() {
-    const { handleCancel } = this.props;
     const { event } = this.state;
 
     return (
@@ -116,7 +119,7 @@ export default class EventForm extends Component {
           <Button positive type="submit">
             Submit
           </Button>
-          <Button onClick={handleCancel} type="button">
+          <Button onClick={this.props.history.goBack} type="button">
             Cancel
           </Button>
         </Form>
@@ -124,3 +127,8 @@ export default class EventForm extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EventForm);
